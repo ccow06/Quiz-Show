@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <title>Quiz Game</title>
+    <link href="quizshow.css" type="text/css" rel="stylesheet">
+    <script>
+      var score = 0;
+      var questionCount = 0;
+      var totalAttempts = 0;
+      var questionOne = "What is code?";
+      var questionTwo = "Am I alive?";
+      var questionThree = "Why?";
+      function gradeQuiz() {
+        var answer = document.getElementById("Answer").value;
+        document.getElementById("score").style.visibility = "hidden";
+        document.getElementById("questions").style.visibility = "visible";
+        if (questionCount === 0) { // question 1
+          document.getElementById("question").innerHTML = questionOne;
+          var answer = document.getElementById("Answer").value;
+          questionCount = questionCount + 1;
+        } else if (questionCount === 1) { // question 2
+          document.getElementById("question").innerHTML = questionTwo;
+          var answer = document.getElementById("Answer").value;
+          if (answer === "words") {
+            score = score + 1;
+          }
+          questionCount = questionCount + 1;
+          document.getElementById("Answer").value = "";
+        } else if (questionCount === 2) { // question 3
+          document.getElementById("question").innerHTML = questionThree;
+          var answer = document.getElementById("Answer").value;
+          if (answer === "yes") {
+            score = score + 1;
+          }
+          questionCount = questionCount + 1;
+          document.getElementById("Answer").value = "";
+        } else if (questionCount === 3) {
+          if (answer === "idk lol") {
+            score = score + 1;
+          }
+          end()
+          document.getElementById("Answer").value = "";
+        }
+      }
+      function end() {
+        document.getElementById("score").style.visibility = "visible";
+        document.getElementById("questions").style.visibility = "hidden";
+        document.getElementById("endScore").innerHTML = "Your score: " + score;
+        totalAttempts++
+        if (totalAttempts === 2) {
+          document.getElementById("revealButton").style.visibility = "visible"
+        }
+      }
+      function resetQuiz() {
+        questionCount = 0;
+        score = 0;
+        gradeQuiz()
+      }
+      function reveal() {
+        document.getElementById("answers").style.visibility = "visible";
+        document.getElementById("revealButton").style.visibility = "hidden";
+      }
+    </script>
+  </head>
+  <body onload="gradeQuiz()">
+    <h2>Fun quiziiiiii ahhhahahhhahaaaa ¯\_(ツ)_/¯</h2>
+    <div id="questions">
+      <span id="question">What is code?</span>
+      <input type="text" placeholder="Enter Answer Here" id="Answer">
+      <input type="button" value="Submit Answer" onclick="gradeQuiz()" id="submit">
+    </div>
+    <div id="score">
+      <span id="endScore"></span>
+      <br><br>
+      <input type="button" value="Reset Quiz" onclick="resetQuiz()">
+    </div>
+    <div id="answers">
+      <br>
+      <input id="revealButton" type="button" value="Reveal Answers" onclick="reveal()"></input>
+      <h3 id="title">Question Answers</h3>
+      <p><em>What is code?:</em> words</p>
+      <p><em>Am I alive?:</em> yes</p>
+      <p><em>Why?:</em> idk lol</p>
+    </div>
+  </body>
+</html>
